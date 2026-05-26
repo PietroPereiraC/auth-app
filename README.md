@@ -1,59 +1,73 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Auth App
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Sobre o Projeto
 
-## About Laravel
+Este é um **aplicativo Laravel** de exemplo que permite a gestão de **Posts** associados a **Categorias**. Cada post possui:
+- **Título**
+- **Descrição** (texto)
+- **Imagem** (upload e exibição)
+- **Categoria**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+O objetivo do projeto é demonstrar um fluxo completo de CRUD, relacionamento entre modelos, upload de arquivos e uma interface responsiva com Blade + TailwindCSS.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tecnologias e Versões Utilizadas
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **PHP**: 8.2 (ou superior)
+- **Laravel**: 10.x
+- **Composer**: 2.x
+- **Node.js & npm**: 18.x (para compilar assets Tailwind)
+- **MySQL / MariaDB**: 10.5+ (ou outro driver compatível)
+- **XAMPP** (Apache, PHP, MySQL) – usado como ambiente local.
 
-## Learning Laravel
+## Pré‑requisitos
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+1. **PHP 8.2+** instalado e configurado no PATH.
+2. **Composer** para gerenciamento de dependências PHP.
+3. **Node.js** e **npm** para compilar assets (TailwindCSS).
+4. **MySQL** (ou outro banco suportado) e um banco de dados criado para a aplicação.
+5. **XAMPP** ou outro servidor web que sirva a pasta `public` do Laravel.
+6. Extensões PHP necessárias: `ctype`, `json`, `mbstring`, `openssl`, `pdo_mysql`, `tokenizer`, `xml`.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Instalação
 
-## Laravel Sponsors
+```bash
+# 1. Clonar o repositório
+git clone https://github.com/SEU_USUARIO/auth-app.git
+cd auth-app
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+# 2. Instalar dependências PHP
+composer install
 
-### Premium Partners
+# 3. Copiar o .env de exemplo e gerar a chave da aplicação
+cp .env.example .env
+php artisan key:generate
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+# 4. Configurar o banco no .env (DB_DATABASE, DB_USERNAME, DB_PASSWORD)
+#    e criar o banco de dados correspondente.
 
-## Contributing
+# 5. Executar as migrations (cria tabelas de posts, categorias etc.)
+php artisan migrate
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# 6. Criar link simbólico para acesso a arquivos armazenados publicamente
+php artisan storage:link
 
-## Code of Conduct
+# 7. Instalar dependências front‑end (TailwindCSS) e compilar assets
+npm install
+npm run dev
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# 8. Iniciar o servidor de desenvolvimento
+php artisan serve
+```
 
-## Security Vulnerabilities
+A aplicação estará disponível em `http://localhost:8000`.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Uso da Aplicação
 
-## License
+- **Listar Posts**: ao acessar a rota `/posts` são exibidos cards com a imagem (se houver), título, descrição, categoria e botões de *Editar* e *Deletar*.
+- **Criar Post**: clique em **Adicionar novo Post**, preencha título, texto, escolha a categoria e, opcionalmente, faça upload de uma imagem (máx. 2 MB, formatos JPEG/PNG/GIF).
+- **Editar Post**: o formulário de edição mostra a imagem atual (se existir) e permite substituí‑la ou deixá‑la como está.
+- **Deletar Post**: o botão de exclusão remove o registro e, se houver imagem associada, o arquivo é removido do storage.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Licença
+
+Distribuído sob a licença **MIT**. Veja o arquivo `LICENSE` para mais detalhes.
